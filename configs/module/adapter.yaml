@@ -1,0 +1,7 @@
+_target_: viper.module.ViperModule
+
+model:
+  _target_: viper.modeling.models.dinov3_timm.DinoV3FromTimm
+  model_name: "small_plus"
+  pretrained: True
+  inplanes: 32

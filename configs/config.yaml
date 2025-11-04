@@ -1,0 +1,8 @@
+defaults:
+  - _self_
+  - data: automotive.yaml
+  - module: adapter.yaml
+  - trainer: default.yaml
+
+checkpoint_path: "<PATH_TO_CHECKPOINT>"
+device: "cuda"

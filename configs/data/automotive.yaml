@@ -1,0 +1,8 @@
+_target_: viper.data.datamodule.ViperDataModule
+dataset_name: "cityscapes"
+train_data_dir: "/data/cityscapes"
+val_data_dir: "/data/cityscapes"
+batch_size: 4
+num_workers: 2
+prefetch_factor: 4
+debug_mode: False

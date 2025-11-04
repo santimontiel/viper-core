@@ -1,0 +1,41 @@
+accelerator: "cuda"
+devices: 1
+strategy: "ddp_find_unused_parameters_true"
+max_epochs: 10
+precision: "16-mixed"
+num_sanity_val_steps: 0
+batch_size: ${data.batch_size}
+effective_batch_size: ${data.batch_size}
+gradient_clip_val: 1.0
+
+loggers:
+  - _target_: lightning.pytorch.loggers.wandb.WandbLogger
+    project: "viper"
+    save_dir: "outputs/${hydra:runtime.cwd}"
+    tags:
+      - "viper"
+
+callbacks:
+  - _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: "val/total_loss"
+    dirpath: "outputs/${hydra:runtime.cwd}/checkpoints"
+    filename: "model-{epoch:02d}-{val/total_loss:.2f}"
+    save_top_k: 1
+    mode: "min"
+    save_last: True
+
+  - _target_: lightning.pytorch.callbacks.LearningRateMonitor
+    logging_interval: "step"
+
+  - _target_: lightning.pytorch.callbacks.RichModelSummary
+    max_depth: 2
+
+optimizer:
+  name: "AdamW"
+  lr: 1e-4
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+
+scheduler:
+  name: "get_cosine_schedule_with_warmup"
+  num_warmup_epochs: 2
