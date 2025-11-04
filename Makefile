@@ -1,5 +1,5 @@
 USER_NAME := $(shell whoami)
-IMAGE_NAME := viper
+IMAGE_NAME := viper_core
 TAG_NAME := v1.0.0
 CONTAINER_NAME := $(IMAGE_NAME)_container
 GPU_ID := 0
@@ -47,6 +47,6 @@ jupyter:
 
 clear:
 	@rm -rf .venv/
-	@rm -rf viper_dev.egg-info/
+	@rm -rf viper_core.egg-info/
 	@find . -type d -name "__pycache__" -exec rm -rf {} +
 	@echo "Cleaned up the project directory."
