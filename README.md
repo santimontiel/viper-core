@@ -69,7 +69,7 @@ uv run tools/eval.py
 ```
 3. To make inference with a pretrained checkpoint:
 ```bash
-uv run tools/eval.py checkpoint=/path/to/ckpt.pth
+uv run tools/eval.py checkpoint_path=/path/to/ckpt.pth
 ```
 
 ## 🫂 Acknowledgements
