@@ -14,8 +14,8 @@ class ViperDataModule(L.LightningDataModule):
     def __init__(
         self,
         dataset_name: str,
-        train_data_dir: str,
-        val_data_dir: str,
+        cityscapes_data_dir: str,
+        urbansyn_data_dir: str,
         batch_size: int,
         num_workers: int,
         prefetch_factor: int,
@@ -23,8 +23,8 @@ class ViperDataModule(L.LightningDataModule):
     ):
         super().__init__()
         self.dataset_name = dataset_name
-        self.train_data_dir = train_data_dir
-        self.val_data_dir = val_data_dir
+        self.cityscapes_data_dir = cityscapes_data_dir
+        self.urbansyn_data_dir = urbansyn_data_dir
         self.batch_size = batch_size
         self.num_workers = num_workers
         self.prefetch_factor = prefetch_factor
@@ -36,10 +36,10 @@ class ViperDataModule(L.LightningDataModule):
             self.prefetch_factor = None
 
     def setup(self, stage: str | None = None):
-        train_dataset_1 = CityScapesDataset(data_dir=self.train_data_dir, split="train")
-        train_dataset_2 = UrbanSynDataset(data_dir="/data/UrbanSyn", split="train")
+        train_dataset_1 = CityScapesDataset(data_dir=self.cityscapes_data_dir, split="train")
+        train_dataset_2 = UrbanSynDataset(data_dir=self.urbansyn_data_dir, split="train")
         train_dataset = ConcatDataset([train_dataset_1, train_dataset_2])
-        val_dataset = CityScapesDataset(data_dir=self.val_data_dir, split="val")
+        val_dataset = CityScapesDataset(data_dir=self.cityscapes_data_dir, split="val")
 
         if stage == "fit":
             self.train_dataset = train_dataset
